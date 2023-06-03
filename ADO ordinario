@@ -1,0 +1,109 @@
+create database ADO;
+use ADO;
+
+CREATE TABLE Conductores (
+  id_conductor INT PRIMARY KEY not null,
+  nombre VARCHAR(50) not null,
+  apellido_paterno VARCHAR(50) not null,
+  apellido_materno VARCHAR(50) not null,
+  edad int not null
+);
+
+CREATE TABLE Autobuses (
+  id_autobus INT PRIMARY KEY not null,
+  id_conductor int not null,
+  numero_autobus VARCHAR(50) not null,
+  capacidad INT not null,
+  modelo VARCHAR(50) not null,
+FOREIGN KEY (id_conductor) REFERENCES Conductores(id_conductor)
+);
+
+CREATE TABLE Pasajeros (
+  id_pasajero INT PRIMARY KEY,
+  nombre VARCHAR(50) not null,
+  apellido_paterno VARCHAR(50) not null,
+  apellido_materno VARCHAR(50) not null,
+  edad int not null,
+  telefono VARCHAR(20)
+);
+
+CREATE TABLE Rutas (
+  id_ruta INT PRIMARY KEY,
+  origen VARCHAR(100) not null,
+  destino VARCHAR(100) not null
+);
+
+CREATE TABLE Viajes (
+  id_viaje INT PRIMARY KEY,
+  id_pasajero INT not null,
+  id_ruta INT not null,
+  id_autobus INT not null,
+  precio INT not null,
+  hora_salida TIME not null,
+  hora_llegada TIME not null,
+  FOREIGN key (id_pasajero)REFERENCES Pasajeros(id_pasajero),
+  FOREIGN KEY (id_ruta) REFERENCES Rutas(id_ruta),
+  FOREIGN key (id_autobus) REFERENCES Autobuses(id_autobus)
+
+);
+
+INSERT INTO Conductores (id_conductor, nombre, apellido_paterno, apellido_materno, edad) VALUES 
+ (1, 'Juan', 'Pérez', 'Gómez', 35),
+ (2, 'María', 'López', 'García', 28),
+ (3, 'Carlos', 'González', 'Hernández', 42),
+ (4, 'Ana', 'Martínez', 'Rodríguez', 39),
+ (5, 'Pedro', 'Sánchez', 'Flores', 31),
+ (6, 'Laura', 'Hernández', 'Gómez', 45),
+ (7, 'Fernando', 'Díaz', 'López', 36),
+ (8, 'Sofía', 'Pérez', 'González', 33),
+ (9, 'Miguel', 'Gómez', 'Torres', 29),
+ (10, 'Luisa', 'López', 'Martínez', 41);
+
+ INSERT INTO Autobuses (id_autobus, id_conductor, numero_autobus, capacidad, modelo) VALUES 
+ (1, 1, 'A001', 50, 'Mercedes-Benz'),
+ (2, 4, 'A002', 40, 'Volvo'),
+ (3, 5, 'A003', 30, 'Ford'),
+ (4, 2, 'A004', 45, 'Scania'),
+ (5, 3, 'A005', 35, 'MAN'),
+ (6, 6, 'A006', 55, 'Iveco'),
+ (7, 7, 'A007', 40, 'DAF'),
+ (8, 9, 'A008', 50, 'Renault'),
+ (9, 10, 'A009', 30, 'Isuzu'),
+ (10, 8, 'A010', 45, 'Hyundai');
+
+ INSERT INTO Pasajeros (id_pasajero, nombre, apellido_paterno, apellido_materno, edad, telefono) VALUES
+ (1, 'Ana', 'González', 'Hernández', 30, '555-1234'),
+ (2, 'Pedro', 'Martínez', 'López', 25, '555-5678'),
+ (3, 'María', 'Rodríguez', 'Sánchez', 40, '555-7890'),
+ (4, 'Juan', 'López', 'Gómez', 35, '555-4321'),
+ (5, 'Laura', 'Hernández', 'Pérez', 28, '555-8765'),
+ (6, 'Carlos', 'García', 'Fernández', 45, '555-0987'),
+ (7, 'Sofía', 'Martínez', 'Gómez', 32, '555-5432'),
+ (8, 'Luis', 'Sánchez', 'Torres', 29, '555-8765'),
+ (9, 'Marta', 'Gómez', 'López', 41, '555-2109'),
+ (10, 'Elena', 'Pérez', 'Fernández', 37, '555-6543');
+
+
+INSERT INTO Rutas (id_ruta, origen, destino) VALUES 
+ (1, 'Oaxaca', 'Ciudad de México'),
+ (2, 'Oaxaca', 'Puebla'),
+ (3, 'Oaxaca', 'Veracruz'),
+ (4, 'Oaxaca', 'Guadalajara'),
+ (5, 'Oaxaca', 'Monterrey'),
+ (6, 'Oaxaca', 'Mérida'),
+ (7, 'Oaxaca', 'Tuxtla Gutiérrez'),
+ (8, 'Oaxaca', 'Acapulco'),
+ (9, 'Oaxaca', 'Puerto Escondido'),
+ (10, 'Oaxaca', 'Huatulco');
+
+INSERT INTO Viajes (id_viaje, id_pasajero, id_ruta, id_autobus, precio, hora_salida, hora_llegada) VALUES 
+(1, 1, 1, 1, 150, '08:00:00', '12:00:00'),
+(2, 2, 2, 2, 200, '09:30:00', '13:30:00'),
+(3, 3, 3, 3, 180, '10:15:00', '14:15:00'),
+(4, 4, 4, 4, 250, '11:00:00', '15:00:00'),
+(5, 5, 5, 5, 220, '12:45:00', '16:45:00'),
+(6, 6, 6, 6, 190, '14:30:00', '18:30:00'),
+(7, 7, 7, 7, 170, '15:15:00', '19:15:00'),
+(8, 8, 8, 8, 230, '16:00:00', '20:00:00'),
+(9, 9, 9, 9, 210, '17:45:00', '21:45:00'),
+(10, 10, 10, 10, 240, '18:30:00', '22:30:00');
